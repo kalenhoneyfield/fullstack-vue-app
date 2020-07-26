@@ -1,5 +1,5 @@
 <template>
-  <div id="root">
+  <div id="root" v-if="course">
     <div>
       <div class="header">
         <div class="bounds">
@@ -24,10 +24,10 @@
             <div class="course--header">
               <h4 class="course--label">Course</h4>
               <h3 class="course--title">{{ course.title }}</h3>
-              <p>By {{ `${course.User.firstName} ${course.User.lastName}` }}</p>
+              <p v-if="course">By {{ `${course.User.firstName} ${course.User.lastName}` }}</p>
             </div>
             <div class="course--description">
-              {{ course.description }}
+              <Markdown :markdown="course.description" />
             </div>
           </div>
           <div class="grid-25 grid-right">
@@ -40,9 +40,7 @@
                 <li class="course--stats--list--item">
                   <h4>Materials Needed</h4>
                   <ul>
-                    {{
-                      course.materialsNeeded
-                    }}
+                    <Markdown :markdown="course.materialsNeeded" />
                   </ul>
                 </li>
               </ul>
@@ -57,12 +55,17 @@
 <script>
 import { mapActions } from 'vuex';
 
+import Markdown from '@/components/Markdown.vue';
+
 export default {
+  components: {
+    Markdown,
+  },
   data() {
     return {
       courseID: null,
       // course: { title: 'course', descriptions: 'words', User: { firstName: 'me', lastName: 'me' } },
-      course: {},
+      course: null,
     };
   },
   methods: {
