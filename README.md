@@ -9,8 +9,8 @@ The project can be run in either a Web browser or as a native desktop app.
 ## Installation
 
 ```
-git clone
-cd
+git clone https://github.com/kalenhoneyfield/fullstack-vue-app.git
+cd fullstack-vue-app
 npm install
 ```
 
