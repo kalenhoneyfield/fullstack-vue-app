@@ -1,12 +1,21 @@
 <template>
-  <h1>Home</h1>
+  <div class="container">
+    <b-card-group deck>
+      <CourseCard v-for="(course, index) in courses" :key="index" :course="course" />
+    </b-card-group>
+  </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex';
 
+import CourseCard from '@/components/CourseCard.vue';
+
 export default {
   name: 'Home',
+  components: {
+    CourseCard,
+  },
   data() {
     return {
       courses: [],
