@@ -28,10 +28,32 @@ function handleAPIErrors(apiErrorMessage, statusCode) {
 }
 
 export default {
-  async getCourseList() {
+  getCourseList: async () => {
     let response = {};
     const handleAPI = new GetAPI();
     await handleAPI.api('/courses').then(() => {
+      console.log(handleAPI.statusCode);
+      if (handleAPIErrors(handleAPI.errorMessage, handleAPI.statusCode)) {
+        if (handleAPI.responseData) {
+          response = {
+            data: handleAPI.responseData,
+            status: handleAPI.statusCode,
+          };
+        }
+      } else {
+        response = {
+          error: handleAPI.errorMessage,
+          status: handleAPI.statusCode,
+        };
+      }
+    });
+    return response;
+  },
+  getCourseByID: async (context, courseId) => {
+    console.log(courseId);
+    let response = {};
+    const handleAPI = new GetAPI();
+    await handleAPI.api(`/courses/${courseId}`).then(() => {
       console.log(handleAPI.statusCode);
       if (handleAPIErrors(handleAPI.errorMessage, handleAPI.statusCode)) {
         if (handleAPI.responseData) {
