@@ -10,7 +10,7 @@
           <b-nav-item to="/about" :active="$route.name == 'About'">About</b-nav-item>
         </b-navbar-nav>
 
-        <b-button variant="danger" @click="getCourses">Test API</b-button>
+        <!-- <b-button variant="danger" @click="getCourses">Test API</b-button> -->
 
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
