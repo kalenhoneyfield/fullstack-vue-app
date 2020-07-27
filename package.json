@@ -1,6 +1,10 @@
 {
   "name": "fullstack-vue-app",
   "version": "0.1.0",
+  "description": "A fullstack web and desktop app for managing a school database.",
+  "author": {
+    "name": "Kalen Honeyfield"
+  },
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
