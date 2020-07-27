@@ -1,8 +1,12 @@
 import axios from 'axios';
-import Cookies from 'js-cookie';
+// import Cookies from 'js-cookie';
 
-const apiHost = process.env.VUE_APP_APIHOSTNAME || 'localhost';
+// if we have a defined host, use that otherwise assume its localhost
+const apiHost = process.env.VUE_APP_API_HOSTNAME || 'localhost';
 const apiBaseUrl = `http://${apiHost}:5000/api`;
+
+// define localStorage
+const { localStorage } = window;
 
 /**
  * I'm not entirely thrilled with the authentication system, and would like to rewrite this using JWT
@@ -22,7 +26,7 @@ class GetData {
     method = 'GET',
     body = null,
     requiresAuth = false,
-    credentials = Cookies.getJSON('seaQritWerhd') || null, // doing it this way feels slightly less meh
+    credentials = localStorage.getItem('seaQritTolkien') || null,
     userNamePassword
   ) {
     let credentialInfo = credentials;

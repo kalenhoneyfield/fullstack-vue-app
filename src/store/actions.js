@@ -72,7 +72,6 @@ export default {
     return response;
   },
   signIn: async (context, userObject) => {
-    const pwd = userObject.password;
     let userPayload = {};
     const handleAPI = new GetAPI();
     await handleAPI.api(`/users`, 'GET', null, true, null, userObject).then(() => {
@@ -81,7 +80,6 @@ export default {
           userPayload = {
             user: handleAPI.responseData.user,
             fullName: `${handleAPI.responseData.user.firstName} ${handleAPI.responseData.user.lastName}`,
-            password: pwd,
           };
           context.commit('logUserIn', userPayload);
         }
