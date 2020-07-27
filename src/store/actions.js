@@ -21,7 +21,7 @@ function handleAPIErrors(apiErrorMessage, statusCode) {
     } else if (statusCode === 400 || statusCode === 401) {
       return false;
     } else {
-      router.push(`/error`).catch(() => {});
+      router.push(`/netWorkError`).catch(() => {});
     }
   }
   return true;

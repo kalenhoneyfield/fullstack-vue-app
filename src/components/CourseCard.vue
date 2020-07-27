@@ -26,7 +26,8 @@ export default {
 
 <style scoped>
 .paper {
-  background: var(--warning);
+  background-image: url('/binding-light.png') !important;
+  background: var(--danger);
   font-family: 'Nunito', sans-serif;
   text-shadow: 1px 1px 1px #000;
   position: relative;

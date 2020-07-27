@@ -1,7 +1,8 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
-const apiBaseUrl = 'http://localhost:5000/api';
+const apiHost = process.env.VUE_APP_APIHOSTNAME || 'localhost';
+const apiBaseUrl = `http://${apiHost}:5000/api`;
 
 /**
  * I'm not entirely thrilled with the authentication system, and would like to rewrite this using JWT
@@ -26,7 +27,6 @@ class GetData {
   ) {
     let credentialInfo = credentials;
     const url = apiBaseUrl + path;
-
     const options = {
       method,
       headers: {
