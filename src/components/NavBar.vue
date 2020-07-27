@@ -22,7 +22,7 @@
           <b-nav-item-dropdown right>
             <!-- Using 'button-content' slot -->
             <template v-slot:button-content>
-              <em>User</em>
+              <em>{{ $store.state.user.fullName ? $store.state.user.fullName : 'User' }}</em>
             </template>
             <b-dropdown-item href="#">Profile</b-dropdown-item>
             <b-dropdown-item href="#">Sign Up</b-dropdown-item>

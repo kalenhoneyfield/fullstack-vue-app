@@ -5,6 +5,7 @@ import Course from '../views/Course.vue';
 import NoAuth from '../views/NotAuthorized.vue';
 import ErrorRoute from '../views/ErrorRoute.vue';
 import NotFound from '../views/NotFound.vue';
+import SignIn from '../views/SignIn.vue';
 
 Vue.use(VueRouter);
 
@@ -26,6 +27,11 @@ const routes = [
     path: '/course/:id',
     name: 'Course',
     component: Course,
+  },
+  {
+    path: '/signIn',
+    name: 'SignIn',
+    component: SignIn,
   },
   {
     path: '/notAuthorized',
