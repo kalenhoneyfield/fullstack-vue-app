@@ -32,7 +32,6 @@ export default {
     let response = {};
     const handleAPI = new GetAPI();
     await handleAPI.api('/courses').then(() => {
-      console.log(handleAPI.statusCode);
       if (handleAPIErrors(handleAPI.errorMessage, handleAPI.statusCode)) {
         if (handleAPI.responseData) {
           response = {
@@ -50,11 +49,9 @@ export default {
     return response;
   },
   getCourseByID: async (context, courseId) => {
-    console.log(courseId);
     let response = {};
     const handleAPI = new GetAPI();
     await handleAPI.api(`/courses/${courseId}`).then(() => {
-      console.log(handleAPI.statusCode);
       if (handleAPIErrors(handleAPI.errorMessage, handleAPI.statusCode)) {
         if (handleAPI.responseData) {
           response = {

@@ -25,7 +25,8 @@
               <em>User</em>
             </template>
             <b-dropdown-item href="#">Profile</b-dropdown-item>
-            <b-dropdown-item href="#">Sign In</b-dropdown-item>
+            <b-dropdown-item href="#">Sign Up</b-dropdown-item>
+            <b-dropdown-item to="/signIn">Sign In</b-dropdown-item>
             <b-dropdown-item href="#">Sign Out</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
