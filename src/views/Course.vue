@@ -1,55 +1,31 @@
 <template>
-  <div id="root" v-if="course">
-    <div>
-      <div class="header">
-        <div class="bounds">
-          <h1 class="header--logo">Courses</h1>
-          <nav><span>Welcome Joe Smith!</span><a class="signout" href="index.html">Sign Out</a></nav>
-        </div>
-      </div>
-      <hr />
-      <div>
-        <div class="actions--bar">
-          <div class="bounds">
-            <div class="grid-100">
-              <span
-                ><a class="button" href="update-course.html">Update Course</a
-                ><a class="button" href="#">Delete Course</a></span
-              ><a class="button button-secondary" href="index.html">Return to List</a>
-            </div>
-          </div>
-        </div>
-        <div class="bounds course--detail">
-          <div class="grid-66">
-            <div class="course--header">
-              <h4 class="course--label">Course</h4>
-              <h3 class="course--title">{{ course.title }}</h3>
-              <p v-if="course">By {{ `${course.User.firstName} ${course.User.lastName}` }}</p>
-            </div>
-            <div class="course--description">
-              <Markdown :markdown="course.description" />
-            </div>
-          </div>
-          <div class="grid-25 grid-right">
-            <div class="course--stats">
-              <ul class="course--stats--list">
-                <li class="course--stats--list--item">
-                  <h4>Estimated Time</h4>
-                  <h3>{{ course.estimatedTime }}</h3>
-                </li>
-                <li class="course--stats--list--item">
-                  <h4>Materials Needed</h4>
-                  <ul>
-                    <Markdown :markdown="course.materialsNeeded" />
-                  </ul>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <b-container v-if="course" fluid class="course--description">
+    <hr />
+    <b-row>
+      <b-col>
+        <h4>Course</h4>
+        <h3>{{ course.title }}</h3>
+        <p>By: {{ `${course.User.firstName} ${course.User.lastName}` }}</p>
+      </b-col>
+    </b-row>
+    <b-row>
+      <b-col sm="8">
+        <Markdown :markdown="course.description" class="course--description" />
+      </b-col>
+      <b-col sm="4" class="course--description">
+        <ul>
+          <li>
+            <h4>Estimated Time</h4>
+            <h3>{{ course.estimatedTime }}</h3>
+          </li>
+          <li>
+            <h4>Materials Needed</h4>
+            <Markdown :markdown="course.materialsNeeded" />
+          </li>
+        </ul>
+      </b-col>
+    </b-row>
+  </b-container>
 </template>
 
 <script>
@@ -79,3 +55,30 @@ export default {
   },
 };
 </script>
+
+<style lang="css" scoped>
+/* .course--description p {
+  font-size: 16px;
+  line-height: 1.3;
+  color: #444;
+}
+.course--description ul {
+  list-style-type: none;
+}
+
+.course--description li {
+  position: relative;
+  padding-left: 30px;
+  padding: 10px 0 3px 5%;
+  border-top: 1px solid #ccc;
+  font-size: 16px;
+  line-height: 1.8;
+  font-family: 'Nunito', sans-serif;
+}
+
+.course--description li:before,
+.course--description li:after {
+  content: ' ';
+  display: table;
+} */
+</style>

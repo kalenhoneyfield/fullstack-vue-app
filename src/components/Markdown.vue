@@ -3,9 +3,14 @@
 </template>
 
 <script>
+// Simple component expects a string with markdown and returns html
 import MarkdownIt from 'markdown-it';
 
-const md = new MarkdownIt();
+const md = new MarkdownIt({
+  html: true,
+  linkify: true,
+  typographer: true,
+});
 
 export default {
   props: {
@@ -21,3 +26,5 @@ export default {
   },
 };
 </script>
+
+<style scoped></style>

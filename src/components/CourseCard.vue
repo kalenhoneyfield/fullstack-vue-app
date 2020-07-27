@@ -5,7 +5,7 @@
         :title="course.title"
         :sub-title="`${course.User.firstName} ${course.User.lastName}`"
         style="max-width: 15rem;"
-        class="m-1 paper"
+        class="my-4 paper"
       >
         <b-card-text> </b-card-text>
       </b-card>
