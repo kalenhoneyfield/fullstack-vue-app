@@ -1,6 +1,9 @@
 import GetAPI from '../consumeAPI';
 import router from '../router';
 
+// define localStorage
+const { localStorage } = window;
+
 function handleAPIErrors(apiErrorMessage, statusCode) {
   /**
    * Handle the following error conditions
@@ -79,9 +82,14 @@ export default {
         if (handleAPI.responseData) {
           userPayload = {
             user: handleAPI.responseData.user,
+            firstName: handleAPI.responseData.user.firstName,
+            lastName: handleAPI.responseData.user.lastName,
+            emailAddress: handleAPI.responseData.user.emailAddress,
             fullName: `${handleAPI.responseData.user.firstName} ${handleAPI.responseData.user.lastName}`,
+            token: handleAPI.responseData.token,
           };
-          context.commit('logUserIn', userPayload);
+          localStorage.setItem('seaQritTolkien', handleAPI.responseData.token);
+          context.commit('logUserInOut', userPayload);
         }
       } else {
         userPayload = {
@@ -89,6 +97,21 @@ export default {
         };
       }
     });
+    return userPayload;
+  },
+  signOut: async context => {
+    const userPayload = {
+      user: null,
+      firstName: null,
+      lastName: null,
+      emailAddress: null,
+      fullName: null,
+      token: null,
+    };
+
+    localStorage.removeItem('seaQritTolkien');
+    context.commit('logUserInOut', userPayload);
+
     return userPayload;
   },
 };

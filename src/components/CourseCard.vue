@@ -7,7 +7,7 @@
         style="max-width: 15rem;"
         class="my-4 paper"
       >
-        <b-card-text> </b-card-text>
+        <b-card-text></b-card-text>
       </b-card>
     </b-link>
   </div>

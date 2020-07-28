@@ -48,8 +48,10 @@ class GetData {
     if (requiresAuth) {
       if (credentialInfo === null) {
         credentialInfo = btoa(`${userNamePassword.emailAddress}:${userNamePassword.password}`);
+        options.headers.Authorization = `Basic ${credentialInfo}`;
+      } else {
+        options.headers.Authorization = `Bearer ${credentialInfo}`;
       }
-      options.headers.Authorization = `Basic ${credentialInfo}`;
     }
 
     return axios(url, options)

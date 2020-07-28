@@ -24,10 +24,15 @@
             <template v-slot:button-content>
               <em>{{ $store.state.user.fullName ? $store.state.user.fullName : 'User' }}</em>
             </template>
-            <b-dropdown-item href="#">Profile</b-dropdown-item>
-            <b-dropdown-item href="#">Sign Up</b-dropdown-item>
-            <b-dropdown-item to="/signIn">Sign In</b-dropdown-item>
-            <b-dropdown-item href="#">Sign Out</b-dropdown-item>
+
+            <div v-if="!$store.state.user.token">
+              <b-dropdown-item href="#">Sign Up</b-dropdown-item>
+              <b-dropdown-item to="/signIn">Sign In</b-dropdown-item>
+            </div>
+            <div v-else>
+              <b-dropdown-item href="#">Profile</b-dropdown-item>
+              <b-dropdown-item href="#" @click="signOut">Sign Out</b-dropdown-item>
+            </div>
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
@@ -40,7 +45,7 @@ import { mapActions } from 'vuex';
 
 export default {
   methods: {
-    ...mapActions(['getCourseList']),
+    ...mapActions(['getCourseList', 'signOut']),
     getCourses() {
       this.getCourseList().then(data => console.log(data));
     },

@@ -1,6 +1,5 @@
 export default {
-  logUserIn: (state, userPayload) => {
-    state.password = userPayload.password;
+  logUserInOut: (state, userPayload) => {
     state.user = userPayload;
   },
   trueFalse: state => {
