@@ -46,11 +46,11 @@ class GetData {
     // if it is, check if we have been passed credentials, if we haven't grab the email/password combo
     // this is really only needed for first sign in, after that the token is stored user side
     if (requiresAuth) {
-      if (credentialInfo === null) {
+      if (userNamePassword.token === undefined) {
         credentialInfo = btoa(`${userNamePassword.emailAddress}:${userNamePassword.password}`);
         options.headers.Authorization = `Basic ${credentialInfo}`;
       } else {
-        options.headers.Authorization = `Bearer ${credentialInfo}`;
+        options.headers.Authorization = `Bearer ${userNamePassword.token}`;
       }
     }
 

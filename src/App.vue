@@ -6,6 +6,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 // @ is an alias to /src
 import NavBar from '@/components/NavBar.vue';
 
@@ -13,6 +15,19 @@ export default {
   name: 'Home',
   components: {
     NavBar,
+  },
+  data() {
+    return {
+      token: window.localStorage.getItem('seaQritTolkien') || null,
+    };
+  },
+  methods: {
+    ...mapActions(['signIn']),
+  },
+  mounted() {
+    if (this.token) {
+      this.signIn({ token: this.token });
+    }
   },
 };
 </script>
