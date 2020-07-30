@@ -1,30 +1,57 @@
 <template>
   <b-container v-if="course" fluid class="course--description">
     <hr />
-    <b-row>
-      <b-col>
-        <h4>Course</h4>
-        <h3>{{ course.title }}</h3>
-        <p>By: {{ `${course.User.firstName} ${course.User.lastName}` }}</p>
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col sm="8">
-        <Markdown :markdown="course.description" class="course--description" />
-      </b-col>
-      <b-col sm="4" class="course--description">
-        <ul>
-          <li>
-            <h4>Estimated Time</h4>
-            <h3>{{ course.estimatedTime }}</h3>
-          </li>
-          <li>
-            <h4>Materials Needed</h4>
-            <Markdown :markdown="course.materialsNeeded" />
-          </li>
-        </ul>
-      </b-col>
-    </b-row>
+    <b-form class="mb-4">
+      <b-row>
+        <b-col>
+          <h4>Course</h4>
+
+          <div v-if="!editMode">
+            <h3>{{ course.title }}</h3>
+          </div>
+          <div v-else>
+            <b-form-group id="input-group-1" label="Course Title:" label-for="input-title">
+              <b-form-input
+                id="input-title"
+                type="email"
+                required
+                v-model="course.title"
+              ></b-form-input>
+            </b-form-group>
+          </div>
+
+          <p>By: {{ `${course.User.firstName} ${course.User.lastName}` }}</p>
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col sm="8">
+          <div v-if="!editMode">
+            <Markdown :markdown="course.description" class="course--description" />
+          </div>
+          <div v-else>
+            <b-form-textarea
+              id="textarea-large"
+              size="lg"
+              rows="3"
+              max-rows="32"
+              v-model="course.description"
+            ></b-form-textarea>
+          </div>
+        </b-col>
+        <b-col sm="4" class="course--description">
+          <ul>
+            <li>
+              <h4>Estimated Time</h4>
+              <h3>{{ course.estimatedTime }}</h3>
+            </li>
+            <li>
+              <h4>Materials Needed</h4>
+              <Markdown :markdown="course.materialsNeeded" />
+            </li>
+          </ul>
+        </b-col>
+      </b-row>
+    </b-form>
   </b-container>
 </template>
 
@@ -40,8 +67,8 @@ export default {
   data() {
     return {
       courseID: null,
-      // course: { title: 'course', descriptions: 'words', User: { firstName: 'me', lastName: 'me' } },
       course: null,
+      editMode: false,
     };
   },
   methods: {
