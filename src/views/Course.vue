@@ -6,7 +6,7 @@
         <b-col>
           <h4>Course</h4>
 
-          <div v-if="!editMode">
+          <div v-if="!editMode" @click="showEditMode('title')">
             <h3>{{ course.title }}</h3>
           </div>
           <div v-else>
@@ -16,6 +16,7 @@
                 type="email"
                 required
                 v-model="course.title"
+                @blur="blurField"
               ></b-form-input>
             </b-form-group>
           </div>
@@ -69,10 +70,19 @@ export default {
       courseID: null,
       course: null,
       editMode: false,
+      editField: '',
     };
   },
   methods: {
     ...mapActions(['getCourseByID']),
+    showEditMode(name) {
+      this.editField = name;
+      this.editMode = !this.editMode;
+    },
+    blurField() {
+      this.editField = '';
+      this.editMode = !this.editMode;
+    },
   },
   mounted() {
     this.courseID = this.$route.params.id;
