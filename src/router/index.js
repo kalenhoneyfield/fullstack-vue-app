@@ -4,6 +4,7 @@ import Home from '../views/Home.vue';
 import Course from '../views/Course.vue';
 import NoAuth from '../views/NotAuthorized.vue';
 import ErrorRoute from '../views/ErrorRoute.vue';
+import NetworkErrorRoute from '../views/NetworkError.vue';
 import NotFound from '../views/NotFound.vue';
 import SignIn from '../views/SignIn.vue';
 
@@ -42,6 +43,11 @@ const routes = [
     path: '/error',
     name: 'ErrorRoute',
     component: ErrorRoute,
+  },
+  {
+    path: '/NetworkError',
+    name: 'NetworkErrorRoute',
+    component: NetworkErrorRoute,
   },
   {
     path: '/notFound',
