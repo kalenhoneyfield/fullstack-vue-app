@@ -74,6 +74,29 @@ export default {
     });
     return response;
   },
+  putCourseByID: async (context, courseToUpdate) => {
+    const courseId = courseToUpdate.course.id;
+    const { course, user } = courseToUpdate;
+
+    let response = {};
+    const handleAPI = new GetAPI();
+    await handleAPI.api(`/courses/${courseId}`, 'PUT', course, true, null, user).then(() => {
+      if (handleAPIErrors(handleAPI.errorMessage, handleAPI.statusCode)) {
+        if (handleAPI.responseData) {
+          response = {
+            data: handleAPI.responseData,
+            status: handleAPI.statusCode,
+          };
+        }
+      } else {
+        response = {
+          error: handleAPI.errorMessage,
+          status: handleAPI.statusCode,
+        };
+      }
+    });
+    return response;
+  },
   signIn: async (context, userObject) => {
     let userPayload = {};
     const handleAPI = new GetAPI();
@@ -88,6 +111,7 @@ export default {
             fullName: `${handleAPI.responseData.user.firstName} ${handleAPI.responseData.user.lastName}`,
             token: handleAPI.responseData.token,
           };
+          console.log(userPayload.token);
           localStorage.setItem('seaQritTolkien', handleAPI.responseData.token);
           context.commit('logUserInOut', userPayload);
         }

@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <NavBar />
-    <router-view />
+    <transition name="view">
+      <router-view />
+    </transition>
   </div>
 </template>
 
@@ -61,5 +63,28 @@ export default {
 .course--description li:after {
   content: ' ';
   display: table;
+}
+
+.view-enter-active,
+.view-leave-active {
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease;
+}
+
+.view-enter-active {
+  transition-delay: 0.5s;
+}
+
+.view-enter,
+.view-leave-to {
+  opacity: 0;
+  transform: translateX(10px);
+  transform: rotateY(90deg);
+}
+
+.view-enter-to,
+.view-leave {
+  opacity: 1;
+  transform: translateX(0px);
+  transform: rotateY(0deg);
 }
 </style>

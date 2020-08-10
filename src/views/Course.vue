@@ -6,18 +6,22 @@
         <b-col>
           <h4>Course</h4>
 
-          <div v-if="!editMode" @click="showEditMode('title')">
+          <div v-if="editField !== 'title'" @click="showEditMode('title')">
             <h3>{{ course.title }}</h3>
           </div>
           <div v-else>
-            <b-form-group id="input-group-1" label="Course Title:" label-for="input-title">
-              <b-form-input
-                id="input-title"
-                type="email"
-                required
-                v-model="course.title"
-                @blur="blurField"
-              ></b-form-input>
+            <b-form-group id="input-group-title" label="Course Title:" label-for="input-title">
+              <b-input-group>
+                <b-form-input
+                  id="input-title"
+                  type="email"
+                  required
+                  v-model="course.title"
+                ></b-form-input>
+                <b-input-group-append>
+                  <b-button variant="danger" @click="blurField">Save</b-button>
+                </b-input-group-append>
+              </b-input-group>
             </b-form-group>
           </div>
 
@@ -26,28 +30,82 @@
       </b-row>
       <b-row>
         <b-col sm="8">
-          <div v-if="!editMode">
-            <Markdown :markdown="course.description" class="course--description" />
+          <div v-if="editField !== 'description'" @click="showEditMode('description')">
+            <Markdown :markdown="course.description" />
           </div>
           <div v-else>
-            <b-form-textarea
-              id="textarea-large"
-              size="lg"
-              rows="3"
-              max-rows="32"
-              v-model="course.description"
-            ></b-form-textarea>
+            <b-form-group
+              id="input-group-description"
+              label="Course Description:"
+              label-for="textarea-description"
+            >
+              <b-input-group>
+                <b-form-textarea
+                  id="textarea-description"
+                  size="lg"
+                  rows="3"
+                  max-rows="32"
+                  v-model="course.description"
+                ></b-form-textarea>
+                <b-input-group-append>
+                  <b-button variant="danger" @click="blurField">Save</b-button>
+                </b-input-group-append>
+              </b-input-group>
+            </b-form-group>
           </div>
         </b-col>
         <b-col sm="4" class="course--description">
           <ul>
             <li>
               <h4>Estimated Time</h4>
-              <h3>{{ course.estimatedTime }}</h3>
+              <div v-if="editField !== 'estimatedTime'" @click="showEditMode('estimatedTime')">
+                <h3>{{ course.estimatedTime }}</h3>
+              </div>
+              <div v-else>
+                <b-form-group
+                  id="input-group-estimatedTime"
+                  label="Course Estimated Time:"
+                  label-for="input-estimatedTime"
+                >
+                  <b-input-group>
+                    <b-form-input
+                      id="input-estimatedTime"
+                      type="text"
+                      required
+                      v-model="course.estimatedTime"
+                    ></b-form-input>
+                    <b-input-group-append>
+                      <b-button variant="danger" @click="blurField">Save</b-button>
+                    </b-input-group-append>
+                  </b-input-group>
+                </b-form-group>
+              </div>
             </li>
             <li>
               <h4>Materials Needed</h4>
-              <Markdown :markdown="course.materialsNeeded" />
+              <div v-if="editField !== 'materialsNeeded'" @click="showEditMode('materialsNeeded')">
+                <Markdown :markdown="course.materialsNeeded" />
+              </div>
+              <div v-else>
+                <b-form-group
+                  id="input-group-materialsNeeded"
+                  label="Course Materials Needed:"
+                  label-for="textarea-materialsNeeded"
+                >
+                  <b-input-group>
+                    <b-form-textarea
+                      id="textarea-materialsNeeded"
+                      size="lg"
+                      rows="3"
+                      max-rows="32"
+                      v-model="course.materialsNeeded"
+                    ></b-form-textarea>
+                    <b-input-group-append>
+                      <b-button variant="danger" @click="blurField">Save</b-button>
+                    </b-input-group-append>
+                  </b-input-group>
+                </b-form-group>
+              </div>
             </li>
           </ul>
         </b-col>
@@ -74,14 +132,24 @@ export default {
     };
   },
   methods: {
-    ...mapActions(['getCourseByID']),
+    ...mapActions(['getCourseByID', 'putCourseByID']),
     showEditMode(name) {
-      this.editField = name;
-      this.editMode = !this.editMode;
+      if (this.$store.state.user.emailAddress === this.course.User.emailAddress && !this.editMode) {
+        this.editMode = true;
+        this.editField = name;
+      }
     },
     blurField() {
+      this.editMode = false;
       this.editField = '';
-      this.editMode = !this.editMode;
+      const courseToUpdate = {
+        course: this.course,
+        user: this.$store.state.user,
+      };
+      this.putCourseByID(courseToUpdate);
+    },
+    loggIt(e) {
+      console.log(e.target.id);
     },
   },
   mounted() {

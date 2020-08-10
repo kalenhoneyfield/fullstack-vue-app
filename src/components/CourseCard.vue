@@ -34,7 +34,7 @@ export default {
   float: left;
   margin: 10px 10px auto;
   border-radius: 2px;
-  width: 30%;
+  width: 200px;
   min-height: 25vh;
   min-width: 20vw;
 }

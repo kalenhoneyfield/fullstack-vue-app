@@ -27,7 +27,7 @@ class GetData {
     body = null,
     requiresAuth = false,
     credentials = localStorage.getItem('seaQritTolkien') || null,
-    userNamePassword
+    userNamePassword = ''
   ) {
     let credentialInfo = credentials;
     const url = apiBaseUrl + path;
@@ -46,11 +46,11 @@ class GetData {
     // if it is, check if we have been passed credentials, if we haven't grab the email/password combo
     // this is really only needed for first sign in, after that the token is stored user side
     if (requiresAuth) {
-      if (userNamePassword.token === undefined) {
+      if (userNamePassword.token === undefined && !credentialInfo) {
         credentialInfo = btoa(`${userNamePassword.emailAddress}:${userNamePassword.password}`);
         options.headers.Authorization = `Basic ${credentialInfo}`;
       } else {
-        options.headers.Authorization = `Bearer ${userNamePassword.token}`;
+        options.headers.Authorization = `Bearer ${userNamePassword.token || credentialInfo}`;
       }
     }
 

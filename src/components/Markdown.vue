@@ -15,6 +15,7 @@ const md = new MarkdownIt({
 export default {
   props: {
     markdown: String,
+    className: String,
   },
   computed: {
     marked() {
