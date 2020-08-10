@@ -29,7 +29,6 @@
 
           <b-button type="submit" variant="primary">Submit</b-button>
           <b-button type="reset" variant="danger">Reset</b-button>
-          <b-button variant="info" @click="toggle">toggle</b-button>
         </b-form>
         <div v-if="error">Log in failed</div>
       </b-col>
@@ -58,6 +57,8 @@ export default {
       this.signIn(this.form).then(data => {
         if (data.error) {
           this.error = data.error;
+        } else {
+          this.$router.push('/');
         }
       });
 

@@ -26,7 +26,7 @@
             </template>
 
             <div v-if="!$store.state.user.token">
-              <b-dropdown-item href="#">Sign Up</b-dropdown-item>
+              <b-dropdown-item to="/signUp">Sign Up</b-dropdown-item>
               <b-dropdown-item to="/signIn">Sign In</b-dropdown-item>
             </div>
             <div v-else>

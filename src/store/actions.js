@@ -111,9 +111,27 @@ export default {
             fullName: `${handleAPI.responseData.user.firstName} ${handleAPI.responseData.user.lastName}`,
             token: handleAPI.responseData.token,
           };
-          console.log(userPayload.token);
           localStorage.setItem('seaQritTolkien', handleAPI.responseData.token);
           context.commit('logUserInOut', userPayload);
+        }
+      } else {
+        userPayload = {
+          error: handleAPI.errorMessage,
+        };
+      }
+    });
+    return userPayload;
+  },
+  signUp: async (context, userObject) => {
+    let userPayload = {};
+    const handleAPI = new GetAPI();
+    await handleAPI.api(`/users`, 'POST', userObject).then(() => {
+      if (handleAPIErrors(handleAPI.errorMessage, handleAPI.statusCode)) {
+        if (handleAPI.responseData) {
+          userPayload = {
+            data: handleAPI.responseData,
+            status: handleAPI.statusCode,
+          };
         }
       } else {
         userPayload = {

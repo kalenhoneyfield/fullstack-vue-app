@@ -7,6 +7,7 @@ import ErrorRoute from '../views/ErrorRoute.vue';
 import NetworkErrorRoute from '../views/NetworkError.vue';
 import NotFound from '../views/NotFound.vue';
 import SignIn from '../views/SignIn.vue';
+import SignUp from '../views/SignUp.vue';
 
 Vue.use(VueRouter);
 
@@ -33,6 +34,11 @@ const routes = [
     path: '/signIn',
     name: 'SignIn',
     component: SignIn,
+  },
+  {
+    path: '/signUp',
+    name: 'SignUp',
+    component: SignUp,
   },
   {
     path: '/notAuthorized',
