@@ -115,6 +115,8 @@ export default {
           context.commit('logUserInOut', userPayload);
         }
       } else {
+        localStorage.removeItem('seaQritTolkien');
+        context.commit('logUserInOut', userPayload);
         userPayload = {
           error: handleAPI.errorMessage,
         };
