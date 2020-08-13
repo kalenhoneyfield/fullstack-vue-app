@@ -112,6 +112,8 @@ export default {
         this.signUp(this.form).then(data => {
           if (data.error) {
             this.error = data.error;
+          } else {
+            this.$router.push('/');
           }
         });
 

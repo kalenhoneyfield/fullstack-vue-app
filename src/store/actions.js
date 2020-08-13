@@ -123,15 +123,34 @@ export default {
     return userPayload;
   },
   signUp: async (context, userObject) => {
+    const { emailAddress, password } = userObject;
     let userPayload = {};
     const handleAPI = new GetAPI();
-    await handleAPI.api(`/users`, 'POST', userObject).then(() => {
+    await handleAPI.api(`/users`, 'POST', userObject).then(async () => {
       if (handleAPIErrors(handleAPI.errorMessage, handleAPI.statusCode)) {
-        if (handleAPI.responseData) {
-          userPayload = {
-            data: handleAPI.responseData,
-            status: handleAPI.statusCode,
-          };
+        if (handleAPI.statusCode === 201) {
+          await handleAPI
+            .api(`/users`, 'GET', null, true, null, { emailAddress, password })
+            .then(() => {
+              if (handleAPIErrors(handleAPI.errorMessage, handleAPI.statusCode)) {
+                if (handleAPI.responseData) {
+                  userPayload = {
+                    user: handleAPI.responseData.user,
+                    firstName: handleAPI.responseData.user.firstName,
+                    lastName: handleAPI.responseData.user.lastName,
+                    emailAddress: handleAPI.responseData.user.emailAddress,
+                    fullName: `${handleAPI.responseData.user.firstName} ${handleAPI.responseData.user.lastName}`,
+                    token: handleAPI.responseData.token,
+                  };
+                  localStorage.setItem('seaQritTolkien', handleAPI.responseData.token);
+                  context.commit('logUserInOut', userPayload);
+                }
+              } else {
+                userPayload = {
+                  error: handleAPI.errorMessage,
+                };
+              }
+            });
         }
       } else {
         userPayload = {
