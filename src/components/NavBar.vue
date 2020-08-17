@@ -30,7 +30,7 @@
               <b-dropdown-item to="/signIn">Sign In</b-dropdown-item>
             </div>
             <div v-else>
-              <b-dropdown-item href="#">Profile</b-dropdown-item>
+              <b-dropdown-item to="/profile">Profile</b-dropdown-item>
               <b-dropdown-item href="#" @click="signOut">Sign Out</b-dropdown-item>
             </div>
           </b-nav-item-dropdown>
