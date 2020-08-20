@@ -17,9 +17,11 @@
                   type="email"
                   required
                   v-model="course.title"
+                  @blur="blurField"
+                  ref="title"
                 ></b-form-input>
                 <b-input-group-append>
-                  <b-button variant="danger" @click="blurField">Save</b-button>
+                  <b-button variant="danger" @click="putCourse">Save</b-button>
                 </b-input-group-append>
               </b-input-group>
             </b-form-group>
@@ -46,9 +48,11 @@
                   rows="3"
                   max-rows="32"
                   v-model="course.description"
+                  @blur="blurField"
+                  ref="description"
                 ></b-form-textarea>
                 <b-input-group-append>
-                  <b-button variant="danger" @click="blurField">Save</b-button>
+                  <b-button variant="danger" @click="putCourse">Save</b-button>
                 </b-input-group-append>
               </b-input-group>
             </b-form-group>
@@ -73,9 +77,11 @@
                       type="text"
                       required
                       v-model="course.estimatedTime"
+                      @blur="blurField"
+                      ref="estimatedTime"
                     ></b-form-input>
                     <b-input-group-append>
-                      <b-button variant="danger" @click="blurField">Save</b-button>
+                      <b-button variant="danger" @click="putCourse">Save</b-button>
                     </b-input-group-append>
                   </b-input-group>
                 </b-form-group>
@@ -99,9 +105,11 @@
                       rows="3"
                       max-rows="32"
                       v-model="course.materialsNeeded"
+                      @blur="blurField"
+                      ref="materialsNeeded"
                     ></b-form-textarea>
                     <b-input-group-append>
-                      <b-button variant="danger" @click="blurField">Save</b-button>
+                      <b-button variant="danger" @click="putCourse">Save</b-button>
                     </b-input-group-append>
                   </b-input-group>
                 </b-form-group>
@@ -137,15 +145,21 @@ export default {
       if (this.$store.state.user.emailAddress === this.course.User.emailAddress && !this.editMode) {
         this.editMode = true;
         this.editField = name;
+        setTimeout(() => {
+          this.$refs[name].$el.focus();
+        }, 10);
       }
     },
     blurField() {
       this.editMode = false;
       this.editField = '';
+    },
+    putCourse() {
       const courseToUpdate = {
         course: this.course,
         user: this.$store.state.user,
       };
+      this.blurField();
       this.putCourseByID(courseToUpdate);
     },
     loggIt(e) {
@@ -154,9 +168,11 @@ export default {
   },
   mounted() {
     this.courseID = this.$route.params.id;
-    this.getCourseByID(this.courseID).then(course => {
-      this.course = course.data.course;
-    });
+    if (this.courseID !== 'new') {
+      this.getCourseByID(this.courseID).then(course => {
+        this.course = course.data.course;
+      });
+    }
   },
 };
 </script>
